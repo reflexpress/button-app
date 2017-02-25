@@ -27,18 +27,27 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("I GOT IT")
     print(msg.topic+" "+str(msg.payload))
+    uuid = json.loads(msg.payload)['UniqueIdentifier']
     age = json.loads(msg.payload)['Age']
 
     if int(age) > 500:
-        gif = random.choice([x for x in g.search('piglets')])
+        if uuid == "[aaaa::221:2eff:ff00:5dc6]":
+            search_term = "dogs"
+        else:
+            search_term = "piglets"
+        gif = random.choice([x for x in g.search(search_term)])
         page = requests.get(gif.fixed_height.downsampled.url)
         with open("/tmp/pig.gif", "wb") as f:
             f.write(page.content)
         sender.send_file("Tanya_San", u"/tmp/pig.gif")
         os.remove("/tmp/pig.gif")
     else:
-        emojis = [u"🐕", u"🚀", u"🎵", u"✨", u"🎉", u"🐖", u"🔬", u"🙂", u"❤️", u"💚", u"😜", u"👍", u"✌️"]
-        sender.send_msg("Tanya_San", random.choice(emojis))
+        if uuid == "[aaaa::221:2eff:ff00:5dc6]":
+            sender.send_msg("Tanya_San", u"Hey what's up")
+        else:
+            emojis = [u"🐕", u"🚀", u"🎵", u"✨", u"🎉", u"🐖", u"🔬", u"🙂", u"❤️", u"💚", u"😜", u"👍", u"✌️"]
+            sender.send_msg("Tanya_San", random.choice(emojis))
+
 
 client = mqtt.Client()
 client.on_connect = on_connect
