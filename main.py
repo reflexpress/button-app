@@ -18,7 +18,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("I GOT IT")
     print(msg.topic+" "+str(msg.payload))
-    sender.send_msg("ramonmartin", "Hello World!")
+    sender.send_msg(u"ramonmartin", u"Hello World!")
 
 client = mqtt.Client()
 client.on_connect = on_connect
