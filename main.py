@@ -1,4 +1,10 @@
 import paho.mqtt.client as mqtt
+from pytg import Telegram
+tg = Telegram(
+    telegram="/home/pi/tg/bin/telegram-cli",
+    pubkey_file="/home/pi/tg/server.pub")
+receiver = tg.receiver
+sender = tg.sender
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -12,13 +18,13 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("I GOT IT")
     print(msg.topic+" "+str(msg.payload))
+    sender.send_msg("ramonmartin", "Hello World!")
 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect("192.168.188.38", 1883, 60)
-
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
