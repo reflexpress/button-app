@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt
 from pytg import Telegram
 tg = Telegram(
@@ -18,7 +19,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("I GOT IT")
     print(msg.topic+" "+str(msg.payload))
-    sender.send_msg(u"ramonmartin", u"Hello World!")
+    sender.send_msg("@ramonmartin", "Hello World!".decode("utf-8"))
 
 client = mqtt.Client()
 client.on_connect = on_connect
