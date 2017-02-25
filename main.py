@@ -3,6 +3,9 @@ import paho.mqtt.client as mqtt
 from pytg import Telegram
 from pytg.receiver import Receiver
 from pytg.sender import Sender
+import random
+import os
+import requests
 import giphypop
 g = giphypop.Giphy()
 receiver = Receiver(host="localhost", port=4458)
@@ -20,7 +23,12 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("I GOT IT")
     print(msg.topic+" "+str(msg.payload))
-    sender.send_msg("@Tanya_San", g.search('piglets').decode("utf-8"))
+    gif = random.choice([x for x in g.search('piglets')])
+    page = requests.get(gif.fixed_height.downsampled.url)
+    with open("/tmp/pig.gif", "wb") as f:
+        f.write(page.content)
+    sender.send_file("Carina", u"/tmp/pig.gif")
+    os.remove("/tmp/pig.gif")
 
 client = mqtt.Client()
 client.on_connect = on_connect
