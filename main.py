@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt
 from pytg import Telegram
-tg = Telegram(
-    telegram="/home/pi/tg/bin/telegram-cli",
-    pubkey_file="/home/pi/tg/tg-server.pub")
-receiver = tg.receiver
-sender = tg.sender
+from pytg.receiver import Receiver
+receiver = Receiver(host="localhost", port=4458)
+sender = Sender(host="localhost", port=4458)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -19,7 +17,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("I GOT IT")
     print(msg.topic+" "+str(msg.payload))
-    sender.send_msg("@ramonmartin", "Hello World!".decode("utf-8"))
+    sender.send_msg("@Tanya_San", "🚀".decode("utf-8"))
 
 client = mqtt.Client()
 client.on_connect = on_connect
