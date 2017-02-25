@@ -2,6 +2,7 @@
 import paho.mqtt.client as mqtt
 from pytg import Telegram
 from pytg.receiver import Receiver
+from pytg.sender import Sender
 receiver = Receiver(host="localhost", port=4458)
 sender = Sender(host="localhost", port=4458)
 
