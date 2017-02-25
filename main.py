@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 from pytg import Telegram
 tg = Telegram(
     telegram="/home/pi/tg/bin/telegram-cli",
-    pubkey_file="/home/pi/tg/server.pub")
+    pubkey_file="/home/pi/tg/tg-server.pub")
 receiver = tg.receiver
 sender = tg.sender
 
