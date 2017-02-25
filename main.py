@@ -31,10 +31,11 @@ def on_message(client, userdata, msg):
         page = requests.get(gif.fixed_height.downsampled.url)
         with open("/tmp/pig.gif", "wb") as f:
             f.write(page.content)
-        sender.send_file("Carina", u"/tmp/pig.gif")
+        sender.send_file("Tanya_San", u"/tmp/pig.gif")
         os.remove("/tmp/pig.gif")
     else:
-        sender.send_msg("Carina", u"🐕")
+        emojis = [u"🐕", u"🚀", u"🎵", u"✨", u"🎉", u"🐖", u"🔬", u"🙂", u"❤️", u"💚", u"😜", u"👍", u"✌️"]
+        sender.send_msg("Tanya_San", random.choice(emojis))
 
 client = mqtt.Client()
 client.on_connect = on_connect
