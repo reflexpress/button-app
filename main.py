@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt
 from pytg import Telegram
-from pytg.receiver import Receiver
-from pytg.sender import Sender
 import json
 import random
 import os
 import requests
 import giphypop
 g = giphypop.Giphy()
-receiver = Receiver(host="localhost", port=4458)
-sender = Sender(host="localhost", port=4458)
+
+tg = Telegram(
+    telegram="/home/pi/tg/bin/telegram-cli",
+    pubkey_file="/home/pi/tg/bin/tg-server.pub")
+receiver = tg.receiver
+sender = tg.sender
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
