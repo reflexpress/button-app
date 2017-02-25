@@ -33,7 +33,7 @@ def on_message(client, userdata, msg):
             f.write(page.content)
         sender.send_file("Carina", u"/tmp/pig.gif")
         os.remove("/tmp/pig.gif")
-    else
+    else:
         sender.send_msg("Carina", u"🐕")
 
 client = mqtt.Client()
