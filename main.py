@@ -29,21 +29,21 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
     uuid = json.loads(msg.payload)['UniqueIdentifier']
     age = json.loads(msg.payload)['Age']
-    config = json.loads('/usr/share/nginx/html/web-app/public/config.json')
-
-    if uuid == config['uuid']:
-        if int(age) > 500:
-            search_term = random.choice(config['long'])
-            gif = random.choice([x for x in g.search(search_term)])
-            page = requests.get(gif.fixed_height.downsampled.url)
-            with open("/tmp/temp.gif", "wb") as f:
-                f.write(page.content)
-            sender.send_file(config['recipient'], u"/tmp/temp.gif")
-            os.remove("/tmp/temp.gif")
+    with open("/var/www/reflexpress/public/config.json", "r") as content:
+        config = json.loads(content)
+        if uuid == config['uuid']:
+            if int(age) > 500:
+                search_term = random.choice(config['long'])
+                gif = random.choice([x for x in g.search(search_term)])
+                page = requests.get(gif.fixed_height.downsampled.url)
+                with open("/tmp/temp.gif", "wb") as f:
+                    f.write(page.content)
+                sender.send_file(config['recipient'], u"/tmp/temp.gif")
+                os.remove("/tmp/temp.gif")
+            else:
+                sender.send_msg(config['recipient'], random.choice(config['short']))
         else:
-            sender.send_msg(config['recipient'], random.choice(config['short']))
-    else:
-        sender.send_msg("Tanya_San", u"😜")
+            sender.send_msg("Tanya_San", u"😜")
 
 
 client = mqtt.Client()
