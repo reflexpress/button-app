@@ -41,9 +41,9 @@ def on_message(client, userdata, msg):
             sender.send_file(config['recipient'], u"/tmp/temp.gif")
             os.remove("/tmp/temp.gif")
         else:
-                sender.send_msg(config['recipient'], random.choice(config['short']))
+            sender.send_msg(config['recipient'], random.choice(config['short']))
     else:
-        print "Wrong UUID"
+        sender.send_msg("Tanya_San", u"😜")
 
 
 client = mqtt.Client()
