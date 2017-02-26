@@ -29,7 +29,7 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
     uuid = json.loads(msg.payload)['UniqueIdentifier']
     age = json.loads(msg.payload)['Age']
-    config = json.loads('../web-app/public/config.json')
+    config = json.loads('/usr/share/nginx/html/web-app/public/config.json')
 
     if uuid == config['uuid']:
         if int(age) > 500:
